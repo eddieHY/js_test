@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>Page Title</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+ <script src="object.js" defer></script>
+ <script src="throttle.js" defer></script>
+</head>
+<body>
+  <select id="province">
+   <option>请选择省</option>
+  </select>
+  <select id="city">
+   <option>请选择市</option>
+  </select>
+  <select id="district">
+   <option>请选择县/区</option>
+  </select>
+
+  <script type="text/javascript">
+   var provinceSelect = document.getElementById('province')
+   var city = document.getElementById('city')
+   var district = document.getElementById('district')
+
+   city.disabled = true
+   district.disabled = true
+
+   let str = ''
+   let provinceData = [
+     {"id":"1","value":"北京"},
+     {"id":"2","value":"重庆"},
+     {"id":"3","value":"上海"},
+     {"id":"4","value":"广东"},
+     {"id":"5","value":"深圳"}
+   ]
+
+   for (item of provinceData) {
+     str += '<option value=' + item.id + '>' + item.value + '</option>'
+   }
+   provinceSelect.innerHTML += str
+
+   let cityData = {
+     "1":['100@北京'],
+     "2":['200@渝北区','201@江北区','202@沙坪坝区'],
+     "3":['300@傅东区'],
+     "4":['400@广州'],
+     "5":['500@东莞']
+   }
+   province.onchange = (event) => {
+     const index = event.target.value
+     const itCitys = cityData[index]
+     console.log
+     let optionStr = ''
+     for (item of itCitys) {
+      let arr = item.split('@')
+      optionStr += '<option value' + arr[0] + '>' + arr[1] + '</option>'
+     }
+     city.innerHTML += optionStr
+     city.disabled = false
+   }
+
+  var arr3 = {
+    "100":['朝阳区','东城区'],
+    "200":['光电园','人和'],
+    "201":['观音桥','红旗河沟'],
+    "202":['大学城','三峡广成'],
+    "300":['简单的'],
+    "400":['简单的'],
+    "500":['简单的']
+  }
+  city.onchange = function(event) {
+    var val2 = event.target.value
+    var arrB = arr3[val2]
+    var str2 = "<option>请输入区</option>"
+    for(k=0; k<arrB.length; k++){
+    str2 += "<option>"+arrB[k]+"</option>"
+    }
+    district.innerHTML = str2;
+    district.disabled = false;
+  }
+  </script>
+</body>
+</html>
